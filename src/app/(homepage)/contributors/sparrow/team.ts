@@ -94,11 +94,11 @@ export const TEAM: Team = {
       field: "Product Management",
     },
     {
-      fullName: "Hafeezah Kadiri",
-      zeduUsername: "Hafeey",
-      githubUsername: "HAFEEZAH029",
+      fullName: "Uyanwanne Emmanuel Chukwudaru",
+      zeduUsername: "emmyanzo",
+      githubUsername: "emmyanzx",
       role: "Member",
-      field: "Frontend Development",
+      field: "Frontend Developer",
     },
     {
       fullName: "Obidigwe Francis Praise Chukwunonso",
