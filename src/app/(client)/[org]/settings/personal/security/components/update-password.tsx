@@ -11,6 +11,9 @@ import {
 import { PutRequest } from "~/utils/new-request";
 import { showError, showSuccess } from "~/components/toast/sonner";
 import Loading from "~/components/ui/loading";
+
+const MIN_PASSWORD_LENGTH = 7;
+
 const UpdatePassword = () => {
   const [open, setOpen] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -22,10 +25,17 @@ const UpdatePassword = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const canSubmit =
-    oldPassword !== "" && newPassword !== "" && confirmPassword !== "";
+    oldPassword !== "" &&
+    confirmPassword !== "" &&
+    newPassword.length >= MIN_PASSWORD_LENGTH;
 
   const handleSaveNewPassword = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (newPassword.length < MIN_PASSWORD_LENGTH) {
+      showError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters`);
+      return;
+    }
 
     if (newPassword !== confirmPassword) {
       showError("Password does not match");
@@ -114,7 +124,9 @@ const UpdatePassword = () => {
                   type={showNewPassword ? "text" : "password"}
                   className="w-full border rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   value={newPassword}
+                  minLength={MIN_PASSWORD_LENGTH}
                   onChange={(e) => setNewPassword(e.target.value)}
+                  aria-describedby="new-password-rule"
                 />
                 <button
                   type="button"
@@ -125,6 +137,10 @@ const UpdatePassword = () => {
                 </button>
               </div>
             </div>
+
+            <p id="new-password-rule" className="mt-1 text-xs text-gray-500">
+              Use at least {MIN_PASSWORD_LENGTH} characters.
+            </p>
 
             <div className="mb-4">
               <label
